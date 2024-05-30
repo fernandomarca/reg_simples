@@ -12,7 +12,7 @@ pub mod model;
 
 #[derive(Deserialize, Debug)]
 struct HoursRequestBody {
-    horas_estudo: f64,
+    hours: f64,
 }
 
 #[derive(Deserialize, Debug)]
@@ -25,7 +25,7 @@ async fn predict(
     data: web::Json<HoursRequestBody>,
     app_state: Data<Arc<AppState>>,
 ) -> impl Responder {
-    let input = DenseMatrix::new(1, 1, vec![data.horas_estudo], false);
+    let input = DenseMatrix::new(1, 1, vec![data.hours], false);
     let y_pred = app_state.model.predict(&input).map_err(|e| {
         println!("Erro ao prever: {:?}", e);
         HttpResponse::InternalServerError().finish()

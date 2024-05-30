@@ -9,7 +9,7 @@ use std::error::Error;
 use std::fs::File;
 use std::io::Write;
 
-fn create_model() -> Result<(), Box<dyn Error>> {
+pub fn build_model() -> Result<(), Box<dyn Error>> {
     let data = load_data().expect("Erro ao carregar os dados");
     let model = train_model(data)?;
     save_model(&model)
@@ -100,14 +100,3 @@ pub fn load_model(path: &str) -> Result<LinearRegressionModel, Box<dyn Error>> {
     let model: LinearRegressionModel = serde_json::from_reader(file).unwrap();
     Ok(model)
 }
-
-// let data = vec![vec![1.0], vec![3.0], vec![5.0], vec![7.0], vec![9.0]];
-
-// let x = DenseMatrix::from_2d_vec(&data);
-// let file = fs::File::open("pontuacao_teste.csv").unwrap();
-
-// let mx: DenseMatrix<f64> = csv::matrix_from_csv_source::<f64, Vec<_>, DenseMatrix<_>>(
-//     file,
-//     csv::CSVDefinition::default(),
-// )
-// .unwrap();
